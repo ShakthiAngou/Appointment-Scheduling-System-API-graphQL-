@@ -1,0 +1,31 @@
+type Doctor {
+  id: ID!
+  name: String!
+  clinic: String!
+  specialty: String!
+}
+
+type Timeslot {
+  id: ID!
+  start: String!
+  end: String!
+  doctorId: ID!
+}
+
+type Appointment {
+  id: ID!
+  doctorId: ID!
+  timeslotId: ID!
+  patientName: String!
+}
+
+type Query {
+  doctorDetails(doctorId: ID!): Doctor
+  doctorAvailability(doctorId: ID!): [Timeslot!]!
+}
+
+type Mutation {
+  bookAppointment(doctorId: ID!, timeslotId: ID!, patientName: String!): Appointment
+  cancelAppointment(appointmentId: ID!): Boolean
+  updatePatientName(appointmentId: ID!, newPatientName: String!): Appointment
+}
